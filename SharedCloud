@@ -1,0 +1,120 @@
+/**
+ * Prints Inventory Items.
+ *
+ * @author Alyson Futral.
+ * @version 11/9/2023
+ */
+
+import java.text.DecimalFormat;
+
+/**
+ * Prints class.
+ *
+ */
+public class SharedCloud extends CloudStorage {
+
+    protected double dataStored;
+    protected double dataLimit;
+
+    /**
+     * Static value.
+     *
+     */
+
+    public static final double COST_FACTOR = 1.0;
+
+    /**
+     * Constructor.
+     * @param nameIn used.
+     * @param baseStorageCostIn used.
+     * @param dataStoredIn used.
+     * @param dataLimitIn used.
+     *
+     */
+    public SharedCloud(String nameIn, double baseStorageCostIn,
+                   double dataStoredIn, double dataLimitIn) {
+       super(nameIn, baseStorageCostIn);
+       dataStored = dataStoredIn;
+       dataLimit = dataLimitIn;        
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public double getDataStored() {
+       return dataStored;
+    }
+
+    /**
+     * Method.
+     * @param dataStoredIn used.
+     */
+    public void setDataStored(double dataStoredIn) {  
+       dataStored = dataStoredIn;    
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public double getDataLimit() {
+       return dataLimit;
+    }
+
+    /**
+     * Method.
+     * @param dataLimitIn used.
+     */
+    public void setDataLimit(double dataLimitIn) {
+       dataLimit = dataLimitIn;
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public double getCostFactor() {
+       return COST_FACTOR;
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public double dataOverage() {
+       if (dataStored > dataLimit) {
+          return dataStored - dataLimit;
+       } else {
+          return 0;
+       }
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public double monthlyCost() {
+       return (baseStorageCost + dataOverage() 
+             * SharedCloud.COST_FACTOR);
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public String toString() {
+       super.toString();
+       DecimalFormat df = new DecimalFormat("$#,##0.00");
+       DecimalFormat dff = new DecimalFormat("0.000");
+       DecimalFormat dfff = new DecimalFormat("0.0");
+       return name + " (" + this.getClass() + ") " 
+             + "Monthly Cost: " + df.format(monthlyCost())
+             + "\nBase Storage Cost: " + df.format(baseStorageCost)
+             + "\nData Stored: " + dff.format(getDataStored()) + " GB"
+             + "\nData Limit: " + dff.format(getDataLimit()) + " GB"
+             + "\nOverage: " + dff.format(dataOverage()) + " GB"
+             + "\nCost Factor: " + dfff.format(getCostFactor());
+    }
+
+}
