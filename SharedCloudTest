@@ -1,0 +1,78 @@
+/**
+ * Tests Inventory Items.
+ *
+ * @author Alyson Futral.
+ * @version 11/9/2023
+ */
+
+import org.junit.Assert;
+//import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+/** A test for SharedCloudTest. **/
+
+public class SharedCloudTest {
+
+    /** Fixture initialization (common initialization for all tests). **/
+    @Before public void setUp() {
+    }
+
+    /** A test getDataStoredTest. **/
+    @Test public void getDataStoredTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        Assert.assertEquals(12.00, c2.getDataStored(), .01);
+    }
+
+    /** A test setDataStoredTest. **/
+    @Test public void setDataStoredTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        c2.setDataStored(12.00);
+        Assert.assertEquals(12.00, c2.getDataStored(), .01);
+    }
+
+    /** A test getDataLimitTest. **/
+    @Test public void getDataLimitTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        Assert.assertEquals(20.00, c2.getDataLimit(), .01);
+    }
+
+    /** A test setDataLimitTest. **/
+    @Test public void setDataLimitTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        c2.setDataLimit(20.00);
+        Assert.assertEquals(20.00, c2.getDataLimit(), .01);
+    }
+
+    /** A test getCOSTFACTORTest. **/
+    @Test public void getCOSTFACTORTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        Assert.assertEquals(1.00, c2.getCostFactor(), .01);
+    }
+
+    /** A test dataOverageTest. **/
+    @Test public void dataOverageTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        Assert.assertEquals(0.00, c2.dataOverage(), .01);
+    }
+
+    /** A test dataOverageTest2. **/
+    @Test public void dataOverageTest2() {
+        SharedCloud c3 = new SharedCloud("Cloud Three", 9.00, 25.0, 20.0);
+        Assert.assertEquals(5.00, c3.dataOverage(), .01);
+    }
+
+    /** A test monthlyCostTest. **/
+    @Test public void monthlyCostTest() {
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.0, 20.0);
+        Assert.assertEquals(9.00, c2.monthlyCost(), .01);
+    }
+
+    /** A test toStringTest. **/
+    @Test public void toStringTest() { //refer to toString example
+        SharedCloud c2 = new SharedCloud("Cloud Two", 9.00, 12.00, 20.00);
+        String str = c2.toString();
+        Assert.assertEquals(str, c2.toString());
+    }
+
+}
