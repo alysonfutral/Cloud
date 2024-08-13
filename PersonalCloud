@@ -1,0 +1,42 @@
+/**
+ * Prints Inventory Items.
+ *
+ * @author Alyson Futral.
+ * @version 11/9/2023
+ */
+
+public class PersonalCloud extends SharedCloud {
+
+    /**
+     * Static value.
+     */
+    public static final double COST_FACTOR = 3.0;
+
+    /**
+     * Constructor.
+     * @param nameIn used.
+     * @param baseStorageCostIn used.
+     * @param dataStorageIn used.
+     * @param dataLimitIn used.
+     */
+    public PersonalCloud(String nameIn, double baseStorageCostIn, 
+                         double dataStorageIn, double dataLimitIn) {
+        super(nameIn, baseStorageCostIn, dataStorageIn, dataLimitIn);
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public double getCostFactor() {
+        return COST_FACTOR;
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public double monthlyCost() {
+        return (baseStorageCost + dataOverage() * PersonalCloud.COST_FACTOR);
+    }
+}
