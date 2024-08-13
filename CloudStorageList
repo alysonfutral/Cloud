@@ -1,0 +1,171 @@
+/**
+ * List of cloud storage objects and specialized methods.
+ *
+ * @author Alyson Futral
+ * @version 11/29/2023
+ *
+ */
+
+import java.io.File;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.io.FileNotFoundException;
+
+/**
+ * Class for CloudStorageList.
+ *
+ */
+public class CloudStorageList {
+
+    private CloudStorage[] cloudStorageArray;
+    private String[] invalidRecordsArray;
+    
+    /**
+     * Constructor.
+     *
+     */
+    public CloudStorageList() {
+        cloudStorageArray = new CloudStorage[0];
+        invalidRecordsArray = new String[0];
+    }
+    
+    /**
+     * Method.
+     *
+     * @return used.
+     */
+    public CloudStorage[] getCloudStorageArray() {
+        return cloudStorageArray;
+    }
+    
+    /**
+     * Method.
+     *
+     * @return used.
+     */
+    public String[] getInvalidRecordsArray() {
+        return invalidRecordsArray;
+    }
+    
+    /**
+     * Method.
+     * @param cloudObj used,
+     */
+    public void addCloudStorage(CloudStorage cloudObj) {
+        cloudStorageArray = Arrays.copyOf(cloudStorageArray, 
+                             cloudStorageArray.length + 1);
+        cloudStorageArray[cloudStorageArray.length - 1] = cloudObj;
+    }
+    
+    /**
+     * Method.
+     * @param strObj used.
+     */
+    public void addInvalidRecord(String strObj) {
+        invalidRecordsArray = Arrays.copyOf(invalidRecordsArray, 
+                             invalidRecordsArray.length + 1);
+        invalidRecordsArray[invalidRecordsArray.length - 1] = strObj;
+    }
+
+    /**
+     * Method.
+     * @throws FileNotFoundException used.
+     * @param fileNameIn used.
+     */
+    public void readFile(String fileNameIn) 
+                    throws FileNotFoundException {
+        Scanner scanFile = new Scanner(new File(fileNameIn));
+        scanFile.useDelimiter(",");
+        
+        while (scanFile.hasNext()) {
+            char character = scanFile.next().charAt(0);
+            switch (character) {
+                case 'D':
+                    String nameD = scanFile.next();
+                    double baseStorageCostD = Double.parseDouble(scanFile.next());
+                    double serverCost = Double.parseDouble(scanFile.next());
+                    addCloudStorage(new DedicatedCloud(nameD, baseStorageCostD, serverCost));
+                    break;
+                
+                case 'S':
+                    String nameS = scanFile.next();
+                    double baseStorageCostS = Double.parseDouble(scanFile.next());
+                    double dataStorage = Double.parseDouble(scanFile.next());
+                    double dataLimit = Double.parseDouble(scanFile.next());
+                    addCloudStorage(new SharedCloud(nameS, baseStorageCostS, dataStorage, dataLimit));
+                    break;
+                
+                case 'C':
+                    String nameC = scanFile.next();
+                    double baseStorageCostC = Double.parseDouble(scanFile.next());
+                    double dataStorageC = Double.parseDouble(scanFile.next());
+                    double dataLimitC = Double.parseDouble(scanFile.next());
+                    addCloudStorage(new PublicCloud(nameC, baseStorageCostC, dataStorageC, dataLimitC));
+                    break;
+                
+                case 'P':
+                    String nameP = scanFile.next();
+                    double baseStorageCostP = Double.parseDouble(scanFile.next());
+                    double dataStorageP = Double.parseDouble(scanFile.next());
+                    double dataLimitP = Double.parseDouble(scanFile.next());
+                    addCloudStorage(new PrivateCloud(nameP, baseStorageCostP, dataStorageP, dataLimitP));
+                    break;
+                
+                default:
+                    addInvalidRecord(scanFile.nextLine());
+            }
+        }
+        
+        scanFile.close();
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public String generateReport() {
+        String report = "-------------------------------\n"
+                      + "Monthly Cloud Storage Report\n"
+                      + "-------------------------------\n";
+        
+        for (CloudStorage cs : cloudStorageArray) {
+            report += cs + "\n";
+        }
+        
+        return report;
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public String generateReportByName() {
+        Arrays.sort(cloudStorageArray);
+        String byName = "-------------------------------\n"
+                      + "Monthly Cloud Storage Report\n"
+                      + "-------------------------------\n";
+        
+        for (CloudStorage cs : cloudStorageArray) {
+            byName += cs + "\n";
+        }
+        
+        return byName;
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public String generateReportByMonthlyCost() {
+        Arrays.sort(cloudStorageArray, new MonthlyCostComparator());
+        String byMonthlyCost = "-------------------------------\n"
+                              + "Monthly Cloud Storage Report\n"
+                              + "-------------------------------\n";
+        
+        for (CloudStorage cs : cloudStorageArray) {
+            byMonthlyCost += cs + "\n";
+        }
+        
+        return byMonthlyCost;
+    }
+}
