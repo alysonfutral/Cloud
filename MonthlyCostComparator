@@ -1,0 +1,31 @@
+/**
+ * Implements comparator interface for CloudStorage.
+ *
+ * @author Alyson Futral
+ * @version 11/19/2023
+ */
+
+import java.util.Comparator;
+
+/**
+ * Implements comparator.
+ *
+ */
+public class MonthlyCostComparator implements Comparator<CloudStorage> {
+
+    /**
+     * Method.
+     * @param c1 used.
+     * @param c2 used.
+     * @return used.
+     */
+    public int compare(CloudStorage c1, CloudStorage c2) {
+        if (c1.monthlyCost() > c2.monthlyCost()) {
+            return -1;
+        } else if (c1.monthlyCost() < c2.monthlyCost()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
