@@ -1,0 +1,35 @@
+/**
+ * Contains the main method for the program.
+ *
+ * @author Alyson Futral
+ * @version 11/19/2023
+ */
+
+import java.io.FileNotFoundException;
+
+/**
+ * Class for CloudStoragePart2.
+ *
+ */
+public class CloudStoragePart2 {
+
+    /**
+     * Main method.
+     * @throws FileNotFoundException used.
+     * @param args not used.
+     */
+    public static void main(String[] args) throws FileNotFoundException {
+        if (args.length > 0) {
+            CloudStorageList listObj = new CloudStorageList(); 
+            String fileNameIn = args[0];
+            listObj.readFile(fileNameIn);
+            
+            System.out.println(listObj.generateReport());
+            System.out.println(listObj.generateReportByName());
+            System.out.println(listObj.generateReportByMonthlyCost());
+        } else {
+            System.out.println("File name expected as command line argument."
+                               + "\nProgram ending.");
+        }
+    }
+}
