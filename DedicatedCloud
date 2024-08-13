@@ -1,0 +1,64 @@
+/**
+ * Prints Inventory Items.
+ *
+ * @author Alyson Futral.
+ * @version 11/9/2023
+ */
+import java.text.DecimalFormat;
+
+/**
+ * Prints Dedicated Cloud.
+ */
+public class DedicatedCloud extends CloudStorage {
+    private double serverCost;
+
+    /**
+     * Constructor.
+     * @param nameIn used.
+     * @param baseStorageCostIn used.
+     * @param serverCostIn used.
+     */
+    public DedicatedCloud(String nameIn, double baseStorageCostIn, 
+                          double serverCostIn) {
+        super(nameIn, baseStorageCostIn);
+        serverCost = serverCostIn;
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public double getServerCost() {
+        return serverCost;
+    }
+   
+    /**
+     * Method.
+     * @param serverCostIn used.
+     */
+    public void setServerCost(double serverCostIn) {
+        serverCost = serverCostIn;
+    }
+   
+    /**
+     * Method.
+     * @return used.
+     */
+    public double monthlyCost() {
+        return baseStorageCost + serverCost;
+    }
+    
+    /**
+     * Method.
+     * @return used.
+     */
+    public String toString() {
+        super.toString();
+        DecimalFormat df = new DecimalFormat("$#,##0.00");
+    
+        return name + " (" + this.getClass() + ") " 
+             + "Monthly Cost: " + df.format(monthlyCost()) 
+             + "\nBase Storage Cost: " + df.format(baseStorageCost)
+             + "\nServer Cost: " + df.format(getServerCost());
+    }
+}
