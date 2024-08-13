@@ -1,0 +1,17 @@
+/**
+ * Class and constructor of invalid categories.
+ *
+ * @author Alyson Futral
+ * @version 11/26/2023
+ */
+
+public class InvalidCategoryException extends Exception {
+
+    /**
+     * Constructor.
+     * @param categoryIn used.
+     */
+    public InvalidCategoryException(String categoryIn) {
+        super("For category: " + categoryIn);
+    }
+}
