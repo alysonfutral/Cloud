@@ -1,0 +1,95 @@
+/**
+ * Prints Inventory Items.
+ *
+ * @author Alyson Futral.
+ * @version 11/9/2023
+ */
+import java.text.DecimalFormat;
+
+/**
+ * Prints CloudStorage.
+ *
+ */
+public abstract class CloudStorage {
+
+    protected String name;
+    protected double baseStorageCost;
+
+    protected static int count = 0;
+
+    /**
+     * Constructor.
+     * @param nameIn used.
+     * @param baseStorageCostIn used.
+     */
+    public CloudStorage(String nameIn, double baseStorageCostIn) {
+        name = nameIn;
+        baseStorageCost = baseStorageCostIn;
+        count++;
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Method.
+     * @param nameIn used.
+     */
+    public void setName(String nameIn) {
+        name = nameIn;
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public double getBaseStorageCost() {
+        return baseStorageCost;
+    }
+
+    /**
+     * Method.
+     * @param baseStorageCostIn used.
+     */
+    public void setBaseStorageCost(double baseStorageCostIn) {
+        baseStorageCost = baseStorageCostIn;
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public static int getCount() {
+        return count;
+    }
+
+    /**
+     * Method.
+     */
+    public static void resetCount() {
+        count = 0;
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public String toString() {
+        DecimalFormat df = new DecimalFormat("$#,##0.00");
+        return name + " (" + this.getClass() + ") " 
+             + "Monthly Cost: " + df.format(monthlyCost()) 
+             + "\nBase Storage Cost: " + df.format(baseStorageCost)
+             + "\n";
+    }
+
+    /**
+     * Method.
+     * @return used.
+     */
+    public abstract double monthlyCost(); // has no body
+}
